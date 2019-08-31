@@ -1,0 +1,95 @@
+<html>
+<head>
+<style>
+/* the gist of approach: hiding checkbox and conditionally styling nearby elements */
+.visuallyhidden {
+  position: absolute !important;
+  left: 0;
+  height: 1px;
+  width: 1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+}
+.modal-window {
+  display: none;
+  z-index: 100;
+}
+.modal-check:checked + .modal-window {
+  display: block;
+}
+.modal-check:checked + * + .dialog-controls .modal-trigger {
+  background: blue;
+}
+.modal-check + * + .dialog-controls .modal-trigger::after {
+  content: ": show";
+}
+.modal-check:checked + * + .dialog-controls .modal-trigger::after {
+  content: ": hide";
+}
+.modal-check + * + .dialog-controls .backdrop {
+  display: none;
+}
+.modal-check:checked + * + .dialog-controls .backdrop {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* eye-candy */
+
+* {
+  padding: 0;
+  margin: 0;
+}
+label, .modal-button {
+  user-select: none;
+  -moz-user-select: none;
+}
+.modal-window {
+  border: #a48d8d solid 2px;
+  border-radius: 2px;
+  padding: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: white;
+}
+.modal-button {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+.modal-button:hover {
+  background: red;
+}
+</style>
+</head>
+<body>
+
+<input type="checkbox" class="visuallyhidden modal-check" name="modal_1" id="modal_1"/>
+
+<div class="modal-window" open="open">
+<div>
+Modal contents
+</div>
+<br/>
+<label for="modal_1" class="modal-button">Close button</label>
+<br/>
+<a href="http://google.com" class="modal-button">Some other button</a>
+</div>
+
+<div class="dialog-controls">
+<div class="backdrop"></div>
+<label for="modal_1" class="modal-trigger">
+Dialog control
+</label>
+</div>
+
+</body>
+</html>
